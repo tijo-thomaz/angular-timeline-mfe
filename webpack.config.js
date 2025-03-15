@@ -9,6 +9,7 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "angular_timeline_mfe",
+      library: { type: "var", name: "angular_timeline_mfe" },
       filename: "remoteEntry.js",
       exposes: {
         "./Component": "./src/app/app.component.ts",
