@@ -4,15 +4,18 @@ module.exports = {
   output: {
     uniqueName: "angular_timeline_mfe",
     publicPath: "auto",
+    scriptType: "module", // <-- Key fix here!
   },
   optimization: { runtimeChunk: false },
+  experiments: { outputModule: true }, // <-- Critical for ESM support!
   plugins: [
     new ModuleFederationPlugin({
       name: "angular_timeline_mfe",
-      library: { type: "var", name: "angular_timeline_mfe" },
+      library: { type: "module" }, // <-- Critical change!
       filename: "remoteEntry.js",
       exposes: {
-        "./Component": "./src/app/app.component.ts",
+        "./Module": "./src/app/app.module.ts",
+        "./bootstrap": "./src/bootstrap.ts",
       },
       shared: {
         "@angular/core": { singleton: true, strictVersion: true },
